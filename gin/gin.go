@@ -9,10 +9,12 @@ type User struct {
 	Gender   string `json:"gender"`
 }
 
+var message = "pong"
+
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
-		c.String(200, "pong")
+		c.String(200, "Message: %s %s %s %s", message, message, message, message)
 	})
 	return r
 }
