@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"></meta:charset>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta:name>
+    <link rel="stylesheet" href="/static/style.css"></link>
+    <title>ToDo List</title>
+  </head>
+  <body>
+    {{ if not .LoggedIn }}
+    <h1>Login</h1>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required></input>
+        <input type="password" name="password" placeholder="Password" required></input>
+        <button type="submit">Login</button>
+    </form>
+
+    {{ else }}
+
+    <h1>Welcome, User</h1>
+    <a href="/logout">Logout</a>
+    {{ if eq .Role "senior"  }}
+    <form action="/add" method="post">
+        <input type="text" name="todo" placeholder="Enter a task" required></input>
+        <button type="submit">Add</button>
+    </form>
+    {{ else }}
+    <p>Read-only todo list for employees</p>
+    {{ end }}
+    <ul>
+        {{ range $index, $todo := .Todos }}
+            <li>
+                <form action="/toggle" method="post" style="display:inline;">
+                    <input type="hidden" name="index" value="{{ $index }}"></input>
+                    <input type="checkbox" {{ if $todo.Done }}checked{{ end }} onchange="this.form.submit()"></input>
+                </form>
+                {{ if $todo.Done }}
+                    <del>{{ $todo.Text }}</del>
+                {{ else }}
+                    {{ $todo.Text }}
+                {{ end }}
+            </li>
+        {{ end }}
+    </ul>
+    {{ end }}
+  </body>

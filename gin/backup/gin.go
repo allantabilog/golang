@@ -1,4 +1,4 @@
-package main
+package example
 
 import (
 	"github.com/gin-gonic/gin"
@@ -28,8 +28,8 @@ func postUser(r *gin.Engine) *gin.Engine {
 	return r
 }
 
-func main() {
-	r := setupRouter()
-	r = postUser(r)
-	r.Run(":8088")
-}
+// func oldMain() {
+// 	r := setupRouter()
+// 	r = postUser(r)
+// 	r.Run(":8088")
+// }
