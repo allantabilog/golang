@@ -105,6 +105,7 @@ func main() {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
 
+		// fake authentication
 		if (username == "employee" && password == "password") || (username == "senior" && password == "password") {
 			tokenString, err := createToken(username)
 			if err != nil {
