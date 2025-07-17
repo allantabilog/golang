@@ -92,7 +92,7 @@ func (s *StringUtils) GetInitials(fullName string) string {
 	if len(words) == 0 {
 		return ""
 	}
-	
+
 	var initials strings.Builder
 	for _, word := range words {
 		if len(word) > 0 {

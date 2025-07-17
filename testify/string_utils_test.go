@@ -105,12 +105,12 @@ func TestStringUtilsCapitalize(t *testing.T) {
 
 	testCases := map[string]string{
 		"hello world":           "Hello World",
-		"HELLO WORLD":          "Hello World",
-		"hELLo WoRLd":          "Hello World",
-		"":                     "",
-		"a":                    "A",
+		"HELLO WORLD":           "Hello World",
+		"hELLo WoRLd":           "Hello World",
+		"":                      "",
+		"a":                     "A",
 		"hello-world test_case": "Hello-World Test_Case",
-		"123 test":             "123 Test",
+		"123 test":              "123 Test",
 	}
 
 	for input, expected := range testCases {
@@ -190,13 +190,13 @@ func TestStringUtilsRemoveSpaces(t *testing.T) {
 	utils := NewStringUtils()
 
 	testCases := map[string]string{
-		"hello world":     "helloworld",
-		"  test  ":        "test",
-		"a b c d":         "abcd",
-		"no-spaces":       "no-spaces",
-		"":                "",
-		"   ":             "",
-		"hello\tworld\n":  "helloworld",
+		"hello world":    "helloworld",
+		"  test  ":       "test",
+		"a b c d":        "abcd",
+		"no-spaces":      "no-spaces",
+		"":               "",
+		"   ":            "",
+		"hello\tworld\n": "helloworld",
 	}
 
 	for input, expected := range testCases {
@@ -270,15 +270,15 @@ func TestStringUtilsGetInitials(t *testing.T) {
 	utils := NewStringUtils()
 
 	testCases := map[string]string{
-		"John Doe":           "JD",
-		"John Michael Doe":   "JMD",
-		"john doe":           "JD",
-		"  John   Doe  ":     "JD",
-		"":                   "",
-		"   ":                "",
-		"Madonna":            "M",
+		"John Doe":              "JD",
+		"John Michael Doe":      "JMD",
+		"john doe":              "JD",
+		"  John   Doe  ":        "JD",
+		"":                      "",
+		"   ":                   "",
+		"Madonna":               "M",
 		"Jean-Claude Van Damme": "JCVD",
-		"A B C D E":          "ABCDE",
+		"A B C D E":             "ABCDE",
 	}
 
 	for input, expected := range testCases {
@@ -308,7 +308,7 @@ func TestStringUtilsEdgeCases(t *testing.T) {
 		for i := range longString {
 			longString = longString[:i] + "a" + longString[i+1:]
 		}
-		
+
 		result := utils.Reverse(longString)
 		assert.Len(t, result, 10000)
 		assert.Equal(t, "a", string(result[0]))
@@ -329,7 +329,7 @@ func TestStringUtilsEdgeCases(t *testing.T) {
 func BenchmarkStringUtilsReverse(b *testing.B) {
 	utils := NewStringUtils()
 	testString := "The quick brown fox jumps over the lazy dog"
-	
+
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		utils.Reverse(testString)
@@ -340,7 +340,7 @@ func BenchmarkStringUtilsReverse(b *testing.B) {
 func BenchmarkStringUtilsIsPalindrome(b *testing.B) {
 	utils := NewStringUtils()
 	testString := "A man a plan a canal Panama"
-	
+
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		utils.IsPalindrome(testString)
@@ -350,14 +350,14 @@ func BenchmarkStringUtilsIsPalindrome(b *testing.B) {
 // TestStringUtilsWithRequire demonstrates using require for critical assertions
 func TestStringUtilsWithRequire(t *testing.T) {
 	utils := NewStringUtils()
-	
+
 	// Use require for critical setup that other tests depend on
 	require.NotNil(t, utils, "StringUtils instance should not be nil")
-	
+
 	// If this fails, the test stops here
 	result := utils.Reverse("test")
 	require.NotEmpty(t, result, "Reverse should return non-empty result")
-	
+
 	// This assertion runs only if the above require passes
 	assert.Equal(t, "tset", result)
 }

@@ -102,7 +102,7 @@ func (s *UserService) DeactivateUser(id int) error {
 
 // InMemoryDatabase is a simple in-memory database implementation
 type InMemoryDatabase struct {
-	users map[int]*User
+	users  map[int]*User
 	emails map[string]bool
 }
 

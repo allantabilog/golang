@@ -119,7 +119,7 @@ func (suite *UserServiceTestSuite) TestCreateUserValidationFailure() {
 func (suite *UserServiceTestSuite) TestCreateUserDatabaseError() {
 	email := "test@example.com"
 	dbError := fmt.Errorf("database connection failed")
-	
+
 	suite.mockDB.On("UserExists", email).Return(false)
 	suite.mockDB.On("SaveUser", mock.AnythingOfType("*main.User")).Return(dbError)
 
@@ -134,7 +134,7 @@ func (suite *UserServiceTestSuite) TestCreateUserDatabaseError() {
 func (suite *UserServiceTestSuite) TestCreateUserEmailFailure() {
 	email := "test@example.com"
 	emailError := fmt.Errorf("smtp server down")
-	
+
 	suite.mockDB.On("UserExists", email).Return(false)
 	suite.mockDB.On("SaveUser", mock.AnythingOfType("*main.User")).Return(nil)
 	suite.mockEmail.On("SendWelcomeEmail", mock.AnythingOfType("*main.User")).Return(emailError)
@@ -150,7 +150,7 @@ func (suite *UserServiceTestSuite) TestCreateUserEmailFailure() {
 func (suite *UserServiceTestSuite) TestGetUser() {
 	userID := 123
 	expectedUser := &User{ID: userID, Name: "Test User", Email: "test@example.com"}
-	
+
 	suite.mockDB.On("GetUser", userID).Return(expectedUser, nil)
 
 	user, err := suite.service.GetUser(userID)
@@ -163,7 +163,7 @@ func (suite *UserServiceTestSuite) TestGetUser() {
 func (suite *UserServiceTestSuite) TestGetUserNotFound() {
 	userID := 999
 	dbError := fmt.Errorf("user not found")
-	
+
 	suite.mockDB.On("GetUser", userID).Return((*User)(nil), dbError)
 
 	user, err := suite.service.GetUser(userID)
@@ -176,7 +176,7 @@ func (suite *UserServiceTestSuite) TestGetUserNotFound() {
 func (suite *UserServiceTestSuite) TestDeactivateUser() {
 	userID := 123
 	user := &User{ID: userID, Name: "Test User", Email: "test@example.com", IsActive: true}
-	
+
 	suite.mockDB.On("GetUser", userID).Return(user, nil)
 	suite.mockDB.On("SaveUser", mock.MatchedBy(func(u *User) bool {
 		return u.ID == userID && !u.IsActive
@@ -205,11 +205,11 @@ func TestUserServiceWithCustomMatchers(t *testing.T) {
 	// Custom matcher for user validation
 	mockDB.On("UserExists", "custom@example.com").Return(false)
 	mockDB.On("SaveUser", mock.MatchedBy(func(user *User) bool {
-		return user.Name == "Custom User" && 
-			   user.Email == "custom@example.com" && 
-			   user.Age == 30
+		return user.Name == "Custom User" &&
+			user.Email == "custom@example.com" &&
+			user.Age == 30
 	})).Return(nil)
-	
+
 	mockEmail.On("SendWelcomeEmail", mock.MatchedBy(func(user *User) bool {
 		return user.Name == "Custom User"
 	})).Return(nil)
