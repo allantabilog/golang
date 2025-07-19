@@ -40,7 +40,7 @@ func (h *IntHeap) Pop() interface{} {
 	*h = old[0 : n-1]
 	return x
 }
-func main() {
+func mainPriorityQueue() {
 	h := &IntHeap{2, 1, 5, 8, 4, 6, 19, 25, 12, 18, 11}
 	heap.Init(h)
 	
