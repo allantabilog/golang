@@ -21,6 +21,18 @@ type Point struct {
 }
 
 func main() {
+	fn := func(x float64) float64 { return math.Pow(1 + x, 1 / x) }
+	fmt.Println("Functional evaluation of (1 + x) ^ (1/x)")
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 1, fn(1))
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 0.1, fn(0.1))
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 0.01, fn(0.01))
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 0.001, fn(0.001))
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 0.0001, fn(0.0001))
+	fmt.Printf("x=%.5f, f(x)=%.5f\n", 0.00001, fn(0.00001))
+
+}
+
+func pointsTester() {
 	points := generatePoints(
 		func(x float64) float64 {
 			return math.Pow(1 + x, 1/x)
