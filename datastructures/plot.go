@@ -20,7 +20,38 @@ type Point struct {
 	Y float64
 }
 
+
 func main() {
+	fn := func(n float64) float64 { return math.Pow(-1, n) + (1 / n) }
+	fmt.Println("Calculating the first few values of (-1)^n + (1/n)")
+	var evenTerms []float64
+	var oddTerms []float64
+	
+	for i := 1; i < 100; i++ {
+		fmt.Printf("x=%d, f(x)=%.5f\n", i, fn(float64(i)))
+
+		if isEven(i) {
+			evenTerms = append(evenTerms, fn(float64(i)))
+		} else {
+			oddTerms = append(oddTerms, fn(float64(i)))
+		}
+	}
+
+	fmt.Println("Collecting values for even and odd terms")
+	fmt.Println("Odd terms:")
+	for _, val := range oddTerms {
+		fmt.Printf("%.5f\n", val)
+	}
+	fmt.Println("Even terms:")
+	for _, val := range evenTerms {
+		fmt.Printf("%.5f\n", val)
+	}
+}
+
+func isEven(n int) bool {
+	return n % 2 == 0
+}
+func example1() {
 	fn := func(x float64) float64 { return math.Pow(1 + x, 1 / x) }
 	fmt.Println("Functional evaluation of (1 + x) ^ (1/x)")
 	fmt.Printf("x=%.5f, f(x)=%.5f\n", 1, fn(1))
