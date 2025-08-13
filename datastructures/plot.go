@@ -20,8 +20,16 @@ type Point struct {
 	Y float64
 }
 
-
 func main() {
+	// generatePlot(fn func(float64) float64, interval Interval, description string, filename string) {
+	generatePlot(
+		func(n float64) float64 {return math.Pow(-1, n) + (1 / n)},
+		Interval{Start: 1, End: 100, Step: 1}	,
+		"An alternating sequence",
+		"alternating.png")
+}
+
+func alternatingSequence() {
 	fn := func(n float64) float64 { return math.Pow(-1, n) + (1 / n) }
 	fmt.Println("Calculating the first few values of (-1)^n + (1/n)")
 	var evenTerms []float64
